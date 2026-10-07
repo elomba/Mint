@@ -19,10 +19,6 @@
     },
     "spatial_statistics": {
         "number_density_rho": 0.00046095192975604757,
-        "nn_dist_mean": 35.83328908428107,
-        "nn_dist_std": 8.572162883453508,
-        "nn_dist_min": 11.607474518711664,
-        "nn_dist_max": 61.93927847122528,
         "coord_mean": 5.90295358649789,
         "hexagonal_fraction": 0.3291139240506329,
         "coord_distribution": {
@@ -43,9 +39,9 @@
     "hyperuniformity": {
         "variance_exponent_leaf": 1.6421152411608417,
         "variance_exponent_poisson": 1.8331961085478392,
-        "fano_factor_min": 0.16977274426673247,
-        "fano_factor_max": 0.6729674796747969,
-        "fano_factor_at_max_R": 0.16977274426673247,
+        "fano_factor_min": 0.16977274426216246,
+        "fano_factor_max": 0.6729674777051359,
+        "fano_factor_at_max_R": 0.16977274426216246,
         "variance_suppression_ratio_at_max_R": 0.2233606177683815,
         "spectral_peak_wavenumber_k": 0.1441596638655462,
         "spectral_peak_wavelength_px": 43.584905366037354,

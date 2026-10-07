@@ -135,11 +135,27 @@ The accompanying script [`generate_analysis.py`](./generate_analysis.py) execute
 ```
 Mint/
 ├── Mint.jpg                               # High-resolution input macro photograph
-├── generate_analysis.py                   # Self-contained processing & figure generation script
-├── results_summary.json                   # Machine-readable output metrics
+│
+├── # --- STEP-BY-STEP MODULAR TUTORIAL (Recommended for Students) ---
+├── 01_skeletonize_and_extract_centroids.py # Step 1: Segmentation, watershed, skeleton & centroids
+├── 02_voronoi_and_network_topology.py      # Step 2: Voronoi/Delaunay tessellation & coordination P(z)
+├── 03_hyperuniformity_fluctuations.py      # Step 3: Real-space sigma_N^2(R), Fano factor & S(k)
+│
+├── # --- ALL-IN-ONE PIPELINE SCRIPT ---
+├── generate_analysis.py                   # Master script executing all steps end-to-end
+│
+├── # --- INTERMEDIATE DATASETS & METRICS ---
+├── areoles_data.csv                       # Tabular CSV with centroid (x,y), area, perimeter, circularity
+├── areoles_and_centroids.npz              # NumPy binary archive storing intermediate arrays
+├── topology_summary.json                  # Coordination distribution P(z) and lognormal area parameters
+├── results_summary.json                   # Machine-readable output metrics (variance, Fano, S(k))
+│
+├── # --- FORMAL ACADEMIC REPORT ---
 ├── mint_leaf_hyperuniformity_report.tex   # Full academic LaTeX report (8 pages)
 ├── mint_leaf_hyperuniformity_report.pdf   # Compiled publication-ready PDF report
+│
 ├── requirements.txt                       # Python dependencies
+├── LICENSE                                # MIT License
 ├── .gitignore                             # Clean git configuration
 ├── figures/                               # Publication-quality vector & raster figures
 │   ├── fig1_vein_segmentation.pdf / .png        # Image segmentation & skeletonization
@@ -171,19 +187,53 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Run the Analysis Pipeline
+---
+
+### Option A: Step-by-Step Hands-On Tutorial (Recommended for Students)
+
+Students can explore the methodology step by step, inspecting intermediate data and figures at each stage:
+
+#### Step 1: Segmentation, Skeletonization & Centroid Extraction
+```bash
+python 01_skeletonize_and_extract_centroids.py
+```
+* **What it does:** Extracts leaf mask in CIELAB space, performs multi-scale Black Top-Hat filtering, floods the elevation map using marker-controlled watershed, extracts the 1-pixel vein skeleton, and computes areole centroids.
+* **Outputs produced:**
+  * `figures/fig1_vein_segmentation.png` & `.pdf`
+  * `figures/fig2_areole_polygons.png` & `.pdf`
+  * `areoles_and_centroids.npz` (NumPy archive)
+  * `areoles_data.csv` (Open in Excel or pandas to inspect areole coordinates, areas, and perimeters!)
+
+#### Step 2: Voronoi Tessellation & Network Topology
+```bash
+python 02_voronoi_and_network_topology.py
+```
+* **What it does:** Loads `areoles_and_centroids.npz`, builds Delaunay triangulation and dual Voronoi graphs, evaluates nearest-neighbor statistics, calculates coordination numbers $z_i$ on interior nodes, verifies Euler's trivalent foam law ($\langle z \rangle \approx 6$), and fits a lognormal distribution to the areole areas.
+* **Outputs produced:**
+  * `figures/fig3_tessellation_coordination.png` & `.pdf`
+  * `topology_summary.json`
+
+#### Step 3: Hyperuniformity Fluctuation Counting & Structure Factor
+```bash
+python 03_hyperuniformity_fluctuations.py
+```
+* **What it does:** Performs boundary-eroded window sampling across radii $R \in [15, 160]\text{ px}$, compares against a 60-realization Poisson ensemble (CSR), computes Fano factor suppression $F(R) \to 0$, calculates pair correlation $g(r)$, and evaluates static structure factors $S(\mathbf{k})$ via apodized Hankel and 2D Fourier scattering.
+* **Outputs produced:**
+  * `figures/fig4_hyperuniformity_realspace.png` & `.pdf`
+  * `figures/fig5_spectral_structure_factor.png` & `.pdf`
+  * `results_summary.json`
+
+---
+
+### Option B: All-in-One End-to-End Pipeline
+To run the entire analysis in a single pass:
 ```bash
 python generate_analysis.py
 ```
-This script will:
-* Segment the leaf lamina and veins from `Mint.jpg`.
-* Extract all 288 areole polygons and locate their centroids.
-* Compute Delaunay triangulation and topological statistics.
-* Perform real-space window sampling across radii $R \in [15, 160]\text{ px}$ with 60 Poisson realizations.
-* Calculate the pair correlation $g(r)$ and Hankel/Fourier structure factors $S(\mathbf{k})$.
-* Save `results_summary.json` and generate all 5 figures in the `figures/` directory (both 300 DPI `.png` and vector `.pdf`).
 
-### 3. (Optional) Recompile the LaTeX Report
+---
+
+### (Optional) Recompile the LaTeX Report
 ```bash
 pdflatex -interaction=nonstopmode mint_leaf_hyperuniformity_report.tex
 pdflatex -interaction=nonstopmode mint_leaf_hyperuniformity_report.tex
