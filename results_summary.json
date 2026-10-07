@@ -1,0 +1,58 @@
+{
+    "image": {
+        "filename": "Mint.jpg",
+        "height": 850,
+        "width": 1332,
+        "leaf_area_px": 624794,
+        "leaf_area_fraction": 0.5518406641936053
+    },
+    "segmentation": {
+        "total_polygons": 288,
+        "interior_polygons": 237,
+        "boundary_polygons": 51,
+        "vein_skeleton_length_px": 25628,
+        "areole_area_mean": 2169.3576388888887,
+        "areole_area_std": 1347.7802251438732,
+        "areole_area_median": 1920.5,
+        "areole_diameter_mean": 49.78703051688652,
+        "areole_diameter_std": 16.833405027422323
+    },
+    "spatial_statistics": {
+        "number_density_rho": 0.00046095192975604757,
+        "nn_dist_mean": 35.83328908428107,
+        "nn_dist_std": 8.572162883453508,
+        "nn_dist_min": 11.607474518711664,
+        "nn_dist_max": 61.93927847122528,
+        "coord_mean": 5.90295358649789,
+        "hexagonal_fraction": 0.3291139240506329,
+        "coord_distribution": {
+            "3": 0.008438818565400843,
+            "4": 0.07172995780590717,
+            "5": 0.29535864978902954,
+            "6": 0.3291139240506329,
+            "7": 0.22784810126582278,
+            "8": 0.06329113924050633,
+            "9": 0.004219409282700422
+        }
+    },
+    "pair_correlation": {
+        "r_exclusion": 14.0,
+        "r_peak": 46.0,
+        "g_peak": 1.3403512863688005
+    },
+    "hyperuniformity": {
+        "variance_exponent_leaf": 1.6421152411608417,
+        "variance_exponent_poisson": 1.8331961085478392,
+        "fano_factor_min": 0.16977274426673247,
+        "fano_factor_max": 0.6729674796747969,
+        "fano_factor_at_max_R": 0.16977274426673247,
+        "variance_suppression_ratio_at_max_R": 0.2233606177683815,
+        "spectral_peak_wavenumber_k": 0.1441596638655462,
+        "spectral_peak_wavelength_px": 43.584905366037354,
+        "class2_fit_parameters": [
+            0.01612608012274411,
+            -0.040086581592797224
+        ],
+        "hyperuniformity_class": "Class II (disordered hyperuniform with logarithmic corrections / anomalous suppression)"
+    }
+}
